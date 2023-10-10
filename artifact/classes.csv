@@ -1,2 +1,13 @@
 class_id,class_name,Description,building_id
 ClassID1,Class1,This is class 0,1000
+ClassID2,Class2,This is class 1,1001
+ClassID3,Class3,This is class 2,1002
+ClassID4,Class4,This is class 3,1003
+ClassID5,Class5,This is class 4,1004
+ClassID6,Class6,This is class 5,1005
+ClassID7,Class7,This is class 6,1006
+ClassID8,Class8,This is class 7,1007
+ClassID9,Class9,This is class 8,1008
+ClassID10,Class10,This is class 9,1009
+ClassID11,Class11,This is class 10,1010
+ClassID12,Class12,This is class 11,1011

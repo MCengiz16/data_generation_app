@@ -20,6 +20,7 @@ class DataController < ApplicationController
     DataGenerator.generate_enrollment_data(num_classes, num_students_per_class, num_staff_per_class)
 
     redirect_to root_path, notice: 'Data generated successfully!'
+    session[:data_generation_complete] = true
   end
 
   def download_csv

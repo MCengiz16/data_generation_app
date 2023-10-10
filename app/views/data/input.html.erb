@@ -1,7 +1,7 @@
 <div class="container mt-5">
   <h1 class="mb-4">Data Generation Form</h1>
 
-  <%= form_with(url: generate_path, method: :post, class: 'mb-4') do |form| %>
+  <%= form_with(url: generate_path, method: :post, class: 'mb-4', id: "dataForm") do |form| %>
     <div class="row mb-3">
       <div class="col">
         <%= form.label :num_staff, 'Number of Staff' %>
@@ -44,21 +44,39 @@
     </div>
   <% end %>
 
-  <div class="mt-4">
-    <div class="mt-4">
-    <%= link_to 'Download Staff CSV Files', download_staff_csv_url, class: 'btn btn-secondary btn-block mx-2 mb-2' %>
-  </div>
-
-  <div class="mt-4">
-    <%= link_to 'Download Student CSV Files', download_students_csv_url, class: 'btn btn-secondary btn-block mx-2 mb-2' %>
-  </div>
-
-  <div class="mt-4">
-    <%= link_to 'Download Classes CSV Files', download_classes_csv_url, class: 'btn btn-secondary btn-block mx-2 mb-2' %>
-  </div>
-
-  <div class="mt-4">
-    <%= link_to 'Download Enrollment CSV Files', download_enrollment_csv_url, class: 'btn btn-secondary btn-block mx-2 mb-2' %>
-  </div>
 </div>
 </div>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var form = document.getElementById("dataForm");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      var formData = new FormData(form);
+
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", form.action, true);
+     xhr.onload = function() {
+  if (xhr.status === 200) {
+    setTimeout(function() {
+      window.location.href = '<%= download_staff_csv_url %>';
+    }, 100); 
+
+    setTimeout(function() {
+      window.location.href = '<%= download_students_csv_url %>';
+    }, 200); 
+
+    setTimeout(function() {
+      window.location.href = '<%= download_classes_csv_url %>';
+    }, 300); 
+
+    setTimeout(function() {
+      window.location.href = '<%= download_enrollment_csv_url %>';
+    }, 400); 
+  }
+};
+      xhr.send(formData);
+    });
+  });
+</script>
