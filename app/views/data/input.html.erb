@@ -1,0 +1,27 @@
+<!-- app/views/data/input.html.erb -->
+<%= form_with(url: generate_path, method: :post) do |form| %>
+  <%= form.label :num_staff %>
+  <%= form.number_field :num_staff, min: 1, required: true %>
+  <%= form.label :num_students %>
+  <%= form.number_field :num_students, min: 1, required: true %>
+
+  <%= form.label :num_classes %>
+  <%= form.number_field :num_classes, min: 1, required: true %>
+
+  <%= form.label :num_buildings %>
+  <%= form.number_field :num_buildings, min: 1, required: true %>
+
+  <%= form.label :num_students_per_class %>
+  <%= form.number_field :num_students_per_class, min: 1, required: true %>
+
+  <%= form.label :num_staff_per_class %>
+  <%= form.number_field :num_staff_per_class, min: 1, required: true %>
+
+
+  <%= link_to 'Download Staff CSV Files', download_staff_csv_url %>
+  <%= link_to 'Download Student CSV Files', download_students_csv_url %>
+  <%= link_to 'Download Classes CSV Files', download_classes_csv_url %>
+  <%= link_to 'Download Enrollment CSV Files', download_enrollment_csv_url %>
+
+  <%= form.submit 'Generate Data', class: 'btn btn-primary' %>
+<% end %>
