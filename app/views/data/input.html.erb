@@ -1,27 +1,64 @@
-<!-- app/views/data/input.html.erb -->
-<%= form_with(url: generate_path, method: :post) do |form| %>
-  <%= form.label :num_staff %>
-  <%= form.number_field :num_staff, min: 1, required: true %>
-  <%= form.label :num_students %>
-  <%= form.number_field :num_students, min: 1, required: true %>
+<div class="container mt-5">
+  <h1 class="mb-4">Data Generation Form</h1>
 
-  <%= form.label :num_classes %>
-  <%= form.number_field :num_classes, min: 1, required: true %>
+  <%= form_with(url: generate_path, method: :post, class: 'mb-4') do |form| %>
+    <div class="row mb-3">
+      <div class="col">
+        <%= form.label :num_staff, 'Number of Staff' %>
+        <%= form.number_field :num_staff, min: 1, required: true, class: 'form-control' %>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col">
+        <%= form.label :num_students, 'Number of Students' %>
+        <%= form.number_field :num_students, min: 1, required: true, class: 'form-control' %>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col">
+        <%= form.label :num_classes, 'Number of Classes' %>
+        <%= form.number_field :num_classes, min: 1, required: true, class: 'form-control' %>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col">
+        <%= form.label :num_buildings, 'Number of Buildings' %>
+        <%= form.number_field :num_buildings, min: 1, required: true, class: 'form-control' %>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col">
+        <%= form.label :num_students_per_class, 'Number of Students per Class' %>
+        <%= form.number_field :num_students_per_class, min: 1, required: true, class: 'form-control' %>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col">
+        <%= form.label :num_staff_per_class, 'Number of Staff per Class' %>
+        <%= form.number_field :num_staff_per_class, min: 1, required: true, class: 'form-control' %>
+      </div>
+    </div>
 
-  <%= form.label :num_buildings %>
-  <%= form.number_field :num_buildings, min: 1, required: true %>
+    <div class="text-center mt-4">
+      <%= form.submit 'Generate Data', class: 'btn btn-primary' %>
+    </div>
+  <% end %>
 
-  <%= form.label :num_students_per_class %>
-  <%= form.number_field :num_students_per_class, min: 1, required: true %>
+  <div class="mt-4">
+    <div class="mt-4">
+    <%= link_to 'Download Staff CSV Files', download_staff_csv_url, class: 'btn btn-secondary btn-block mx-2 mb-2' %>
+  </div>
 
-  <%= form.label :num_staff_per_class %>
-  <%= form.number_field :num_staff_per_class, min: 1, required: true %>
+  <div class="mt-4">
+    <%= link_to 'Download Student CSV Files', download_students_csv_url, class: 'btn btn-secondary btn-block mx-2 mb-2' %>
+  </div>
 
+  <div class="mt-4">
+    <%= link_to 'Download Classes CSV Files', download_classes_csv_url, class: 'btn btn-secondary btn-block mx-2 mb-2' %>
+  </div>
 
-  <%= link_to 'Download Staff CSV Files', download_staff_csv_url %>
-  <%= link_to 'Download Student CSV Files', download_students_csv_url %>
-  <%= link_to 'Download Classes CSV Files', download_classes_csv_url %>
-  <%= link_to 'Download Enrollment CSV Files', download_enrollment_csv_url %>
-
-  <%= form.submit 'Generate Data', class: 'btn btn-primary' %>
-<% end %>
+  <div class="mt-4">
+    <%= link_to 'Download Enrollment CSV Files', download_enrollment_csv_url, class: 'btn btn-secondary btn-block mx-2 mb-2' %>
+  </div>
+</div>
+</div>
