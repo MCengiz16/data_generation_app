@@ -1,8 +1,8 @@
 <div class="container mt-5">
-  <h1 class="mb-4">Data Generation Form</h1>
+  <h1 class="mb-4">Term List Generation Form</h1>
 
   <%= form_with(url: generate_path, method: :post, class: 'mb-4' , id: "dataForm" ) do |form| %>
-    <table style="height: 100px;">
+    <table style="height: 1px;">
       <table style="height: 100px;">
         <tbody>
           <tr>
@@ -10,7 +10,7 @@
               <%= form.label :num_staff, 'Number of Staff' %>
             </td>
             <td class="align-bottom">
-              <%= form.number_field :num_staff, min: 1, required: true, class: 'form-control' %>
+              <%= form.number_field :num_staff, min: 1, max: 100000, required: true, class: 'form-control' %>
             </td>
           </tr>
           <tr>
@@ -19,7 +19,7 @@
 
             </td>
             <td class="align-baseline">
-              <%= form.number_field :num_students, min: 1, required: true, class: 'form-control' %>
+              <%= form.number_field :num_students, min: 1, max: 100000, required: true, class: 'form-control' %>
             </td>
           </tr>
           <tr>
@@ -28,7 +28,7 @@
 
             </td>
             <td class="align-baseline">
-              <%= form.number_field :num_classes, min: 1, required: true, class: 'form-control' %>
+              <%= form.number_field :num_classes, min: 1, max: 10000, required: true, class: 'form-control' %>
             </td>
           </tr>
           <tr>
@@ -37,7 +37,7 @@
 
             </td>
             <td class="align-baseline">
-              <%= form.number_field :num_buildings, min: 1, required: true, class: 'form-control' %>
+              <%= form.number_field :num_buildings, min: 1, max: 10000, required: true, class: 'form-control' %>
             </td>
           </tr>
           <tr>
@@ -46,7 +46,8 @@
 
             </td>
             <td class="align-baseline">
-              <%= form.number_field :num_students_per_class, min: 1, required: true, class: 'form-control' %>
+              <%= form.number_field :num_students_per_class, min: 1, max: 100000, required: true, class: 'form-control'
+                %>
             </td>
           </tr>
           <tr>
@@ -55,7 +56,7 @@
 
             </td>
             <td class="align-baseline">
-              <%= form.number_field :num_staff_per_class, min: 1, required: true, class: 'form-control' %>
+              <%= form.number_field :num_staff_per_class, min: 1, max: 100000, required: true, class: 'form-control' %>
             </td>
           </tr>
         </tbody>
@@ -68,13 +69,19 @@
       <% end %>
 
 </div>
+<div id="loadingMessage" style="display:none;">
+  Generating Term Files, please wait...
 </div>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     var form = document.getElementById("dataForm");
+    var loadingMessage = document.getElementById("loadingMessage");
 
     form.addEventListener("submit", function (event) {
       event.preventDefault();
+
+
+      loadingMessage.style.display = "block";
 
       var formData = new FormData(form);
 
@@ -97,9 +104,12 @@
           setTimeout(function () {
             window.location.href = '<%= download_enrollment_csv_url %>';
           }, 400);
+
+          loadingMessage.style.display = "none";
         }
       };
       xhr.send(formData);
+
     });
   });
 </script>
