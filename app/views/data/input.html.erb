@@ -1,104 +1,104 @@
 <div class="container mt-5">
   <h1 class="mb-4">Data Generation Form</h1>
 
-  <%= form_with(url: generate_path, method: :post, class: 'mb-4', id: "dataForm") do |form| %>
-  <table style="height: 100px;">
-<table style="height: 100px;">
-  <tbody>
-    <tr>
-      <td class="align-bottom">
-       <%= form.label :num_staff, 'Number of Staff' %>
-        </td>
-      <td class="align-bottom">
-        <%= form.number_field :num_staff, min: 1, required: true, class: 'form-control' %>
-        </td>
-    </tr>
-    <tr>
-      <td class="align-bottom">
-       <%= form.label :num_students, 'Number of Students' %>
-       
-        </td>
-      <td class="align-baseline">
-        <%= form.number_field :num_students, min: 1, required: true, class: 'form-control' %>
-        </td>
-    </tr>
-    <tr>
-      <td class="align-bottom">
-        <%= form.label :num_classes, 'Number of Classes' %>
-       
-        </td>
-      <td class="align-baseline">
-        <%= form.number_field :num_classes, min: 1, required: true, class: 'form-control' %>
-        </td>
-    </tr>
-    <tr>
-      <td class="align-bottom">
-        <%= form.label :num_buildings, 'Number of Buildings' %>
-       
-        </td>
-      <td class="align-baseline">
-        <%= form.number_field :num_buildings, min: 1, required: true, class: 'form-control' %>
-        </td>
-    </tr>
-    <tr>
-      <td class="align-bottom">
-        <%= form.label :num_students_per_class, 'Number of Students per Class' %>
-       
-        </td>
-      <td class="align-baseline">
-        <%= form.number_field :num_students_per_class, min: 1, required: true, class: 'form-control' %>
-        </td>
-    </tr>
-    <tr>
-      <td class="align-bottom">
-        <%= form.label :num_staff_per_class, 'Number of Staff per Class' %>
-       
-   </td>
-      <td class="align-baseline">
-        <%= form.number_field :num_staff_per_class, min: 1, required: true, class: 'form-control' %>
-        </td>
-  </tr>
-  </tbody>
-</table>
+  <%= form_with(url: generate_path, method: :post, class: 'mb-4' , id: "dataForm" ) do |form| %>
+    <table style="height: 100px;">
+      <table style="height: 100px;">
+        <tbody>
+          <tr>
+            <td class="align-bottom">
+              <%= form.label :num_staff, 'Number of Staff' %>
+            </td>
+            <td class="align-bottom">
+              <%= form.number_field :num_staff, min: 1, required: true, class: 'form-control' %>
+            </td>
+          </tr>
+          <tr>
+            <td class="align-bottom">
+              <%= form.label :num_students, 'Number of Students' %>
+
+            </td>
+            <td class="align-baseline">
+              <%= form.number_field :num_students, min: 1, required: true, class: 'form-control' %>
+            </td>
+          </tr>
+          <tr>
+            <td class="align-bottom">
+              <%= form.label :num_classes, 'Number of Classes' %>
+
+            </td>
+            <td class="align-baseline">
+              <%= form.number_field :num_classes, min: 1, required: true, class: 'form-control' %>
+            </td>
+          </tr>
+          <tr>
+            <td class="align-bottom">
+              <%= form.label :num_buildings, 'Number of Buildings' %>
+
+            </td>
+            <td class="align-baseline">
+              <%= form.number_field :num_buildings, min: 1, required: true, class: 'form-control' %>
+            </td>
+          </tr>
+          <tr>
+            <td class="align-bottom">
+              <%= form.label :num_students_per_class, 'Number of Students per Class' %>
+
+            </td>
+            <td class="align-baseline">
+              <%= form.number_field :num_students_per_class, min: 1, required: true, class: 'form-control' %>
+            </td>
+          </tr>
+          <tr>
+            <td class="align-bottom">
+              <%= form.label :num_staff_per_class, 'Number of Staff per Class' %>
+
+            </td>
+            <td class="align-baseline">
+              <%= form.number_field :num_staff_per_class, min: 1, required: true, class: 'form-control' %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
 
 
-    <div class="text-center mt-4">
-      <%= form.submit 'Generate Data', class: 'btn btn-primary' %>
-    </div>
-  <% end %>
+      <div class="text-center mt-4">
+        <%= form.submit 'Generate Data' , class: 'btn btn-primary' %>
+      </div>
+      <% end %>
 
 </div>
 </div>
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
+  document.addEventListener("DOMContentLoaded", function () {
     var form = document.getElementById("dataForm");
 
-    form.addEventListener("submit", function(event) {
+    form.addEventListener("submit", function (event) {
       event.preventDefault();
 
       var formData = new FormData(form);
 
       var xhr = new XMLHttpRequest();
       xhr.open("POST", form.action, true);
-     xhr.onload = function() {
-  if (xhr.status === 200) {
-    setTimeout(function() {
-      window.location.href = '<%= download_staff_csv_url %>';
-    }, 100); 
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          setTimeout(function () {
+            window.location.href = '<%= download_staff_csv_url %>';
+          }, 100);
 
-    setTimeout(function() {
-      window.location.href = '<%= download_students_csv_url %>';
-    }, 200); 
+          setTimeout(function () {
+            window.location.href = '<%= download_students_csv_url %>';
+          }, 200);
 
-    setTimeout(function() {
-      window.location.href = '<%= download_classes_csv_url %>';
-    }, 300); 
+          setTimeout(function () {
+            window.location.href = '<%= download_classes_csv_url %>';
+          }, 300);
 
-    setTimeout(function() {
-      window.location.href = '<%= download_enrollment_csv_url %>';
-    }, 400); 
-  }
-};
+          setTimeout(function () {
+            window.location.href = '<%= download_enrollment_csv_url %>';
+          }, 400);
+        }
+      };
       xhr.send(formData);
     });
   });
