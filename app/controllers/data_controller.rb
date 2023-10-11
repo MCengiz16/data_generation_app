@@ -23,10 +23,6 @@ class DataController < ApplicationController
     session[:data_generation_complete] = true
   end
 
-  def download_csv
-    send_file "#{Rails.root}/artifact/staff.csv"
-  end
-
   def download_staff_csv
     send_file "#{Rails.root}/artifact/staff.csv"
   end
