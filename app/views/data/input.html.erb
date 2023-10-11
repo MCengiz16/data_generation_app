@@ -28,7 +28,7 @@
 
             </td>
             <td class="align-baseline">
-              <%= form.number_field :num_classes, min: 1, max: 10000, required: true, class: 'form-control' %>
+              <%= form.number_field :num_classes, min: 1, max: 100000, required: true, class: 'form-control' %>
             </td>
           </tr>
           <tr>
@@ -37,7 +37,7 @@
 
             </td>
             <td class="align-baseline">
-              <%= form.number_field :num_buildings, min: 1, max: 10000, required: true, class: 'form-control' %>
+              <%= form.number_field :num_buildings, min: 1, max: 100000, required: true, class: 'form-control' %>
             </td>
           </tr>
           <tr>
@@ -91,19 +91,19 @@
         if (xhr.status === 200) {
           setTimeout(function () {
             window.location.href = '<%= download_staff_csv_url %>';
-          }, 100);
+          }, 1000);
 
           setTimeout(function () {
             window.location.href = '<%= download_students_csv_url %>';
-          }, 200);
+          }, 2000);
 
           setTimeout(function () {
             window.location.href = '<%= download_classes_csv_url %>';
-          }, 300);
+          }, 3000);
 
           setTimeout(function () {
             window.location.href = '<%= download_enrollment_csv_url %>';
-          }, 400);
+          }, 4000);
 
           loadingMessage.style.display = "none";
         }
