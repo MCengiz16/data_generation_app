@@ -4,12 +4,16 @@ require 'fileutils'
 
 module DataGenerator
 
-  def self.generate_unique_email(email_user, domain)
+  def self.generate_unique_email(email_user, domain, user_type)
     chars = ('a'..'z').to_a + ('A'..'Z').to_a
     random_string = (0...10).map { chars[rand(chars.length)] }.join
     date_number = Time.now.strftime("%Y%m%d%H%M%S%L") 
     unique_string = "#{random_string}_#{date_number}"
-    email = email_user + "+#{unique_string}@#{domain}"
+    if user_type == 'staff'
+      email = email_user + "+staff_#{unique_string}@#{domain}"
+    else
+      email = email_user + "+student_#{unique_string}@#{domain}"
+    end
   end
 
   def self.generate_staff_data(num_staff, email_user, domain)
@@ -21,7 +25,7 @@ module DataGenerator
       csv << ['staff_email', 'staff_id', 'staff_first_name', 'staff_last_name']
   
       num_staff.times do |i|
-        staff_email = generate_unique_email(email_user, domain)
+        staff_email = generate_unique_email(email_user, domain, 'staff')
         staff_id =  "staff#{i+1}"
         staff_first_name = "John#{i+1}"
         staff_last_name = "Doe#{i+1}"
@@ -43,7 +47,7 @@ module DataGenerator
     csv << ['student_email', 'student_id', 'student_first_name', 'student_last_name']
 
     num_students.times do |i|
-      student_email = generate_unique_email(email_user, domain)
+      student_email = generate_unique_email(email_user, domain, 'student')
       student_id = "student#{i+1}"
       student_first_name = "Jane#{i+1}"
       student_last_name = "Smith#{i+1}"
