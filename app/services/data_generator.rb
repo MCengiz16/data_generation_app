@@ -3,26 +3,16 @@ require 'csv'
 require 'fileutils'
 
 module DataGenerator
-  def self.generate_random_string(length)
+
+  def self.generate_unique_email(email_user, domain)
     chars = ('a'..'z').to_a + ('A'..'Z').to_a
-    random_string = (0...length).map { chars[rand(chars.length)] }.join
-  
-    # Add a unique date number to the random string
-    date_number = Time.now.strftime("%Y%m%d%H%M%S%L")  # Format: YearMonthDayHourMinuteSecondMillisecond
+    random_string = (0...10).map { chars[rand(chars.length)] }.join
+    date_number = Time.now.strftime("%Y%m%d%H%M%S%L") 
     unique_string = "#{random_string}_#{date_number}"
-  
-    unique_string
+    email = email_user + "+#{unique_string}@#{domain}"
   end
 
-  def self.generate_unique_email(domain, existing_emails)
-    email = "automation.testing+#{generate_random_string(10)}@#{domain}"
-    while existing_emails.include?(email)
-      email = "automation.testing+#{generate_random_string(10)}@#{domain}"
-    end
-    email
-  end
-
-  def self.generate_staff_data(num_staff, domain)
+  def self.generate_staff_data(num_staff, email_user, domain)
     FileUtils.mkdir_p('artifact') unless File.directory?('artifact')
     staff_emails = []
     staff_ids = []
@@ -31,7 +21,7 @@ module DataGenerator
       csv << ['staff_email', 'staff_id', 'staff_first_name', 'staff_last_name']
   
       num_staff.times do |i|
-        staff_email = generate_unique_email(domain, staff_emails)
+        staff_email = generate_unique_email(email_user, domain)
         staff_id =  "staff#{i+1}"
         staff_first_name = "John#{i+1}"
         staff_last_name = "Doe#{i+1}"
@@ -44,7 +34,7 @@ module DataGenerator
     end
   end
 
-  def self.generate_student_data(num_students, domain)
+  def self.generate_student_data(num_students, email_user, domain)
     FileUtils.mkdir_p('artifact') unless File.directory?('artifact')
     student_emails = []
     student_ids = []
@@ -53,7 +43,7 @@ module DataGenerator
     csv << ['student_email', 'student_id', 'student_first_name', 'student_last_name']
 
     num_students.times do |i|
-      student_email = generate_unique_email(domain, student_emails)
+      student_email = generate_unique_email(email_user, domain)
       student_id = "student#{i+1}"
       student_first_name = "Jane#{i+1}"
       student_last_name = "Smith#{i+1}"
