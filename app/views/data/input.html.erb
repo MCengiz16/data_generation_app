@@ -1,72 +1,70 @@
 <div class="container mt-5">
   <h1 class="mb-4">Term List Generation Form</h1>
 
-  <%= form_with(url: generate_path, method: :post, class: 'mb-4' , id:
-  "dataForm" ) do |form| %>
-  <table style="height: 1px">
-    <tbody>
-      <tr>
-        <td class="align-bottom">
-          <%= form.label :num_staff, 'Number of Staff' %>
-        </td>
-        <td class="align-bottom">
-          <%= form.number_field :num_staff, min: 1, max: 999999, required: true,
-          class: 'form-control', oninput: 'limitInputLength(this, 6)' %>
-        </td>
-      </tr>
-      <tr>
-        <td class="align-bottom">
-          <%= form.label :num_students, 'Number of Students' %>
-        </td>
-        <td class="align-baseline">
-          <%= form.number_field :num_students, min: 1, max: 999999, required:
-          true, class: 'form-control', oninput: 'limitInputLength(this, 6)' %>
-        </td>
-      </tr>
-      <tr>
-        <td class="align-bottom">
-          <%= form.label :num_classes, 'Number of Classes' %>
-        </td>
-        <td class="align-baseline">
-          <%= form.number_field :num_classes, min: 1, max: 9999, required:
-          true, class: 'form-control', oninput: 'limitInputLength(this, 4)' %>
-        </td>
-      </tr>
-      <tr>
-        <td class="align-bottom">
-          <%= form.label :num_buildings, 'Number of Buildings' %>
-        </td>
-        <td class="align-baseline">
-          <%= form.number_field :num_buildings, min: 1, max: 999, required:
-          true, class: 'form-control', oninput: 'limitInputLength(this, 3)' %>
-        </td>
-      </tr>
-      <tr>
-        <td class="align-bottom">
-          <%= form.label :num_students_per_class, 'Number of Students per Class'
-          %>
-        </td>
-        <td class="align-baseline">
-          <%= form.number_field :num_students_per_class, min: 0, max: 999,
-          required: true, class: 'form-control', oninput: 'limitInputLength(this, 3)' %>
-        </td>
-      </tr>
-      <tr>
-        <td class="align-bottom">
-          <%= form.label :num_staff_per_class, 'Number of Staff per Class' %>
-        </td>
-        <td class="align-baseline">
-          <%= form.number_field :num_staff_per_class, min: 0, max: 999,
-          required: true, class: 'form-control', oninput: 'limitInputLength(this, 3)' %>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <%= form_with(url: generate_path, method: :post, class: 'mb-4' , id: "dataForm" ) do |form| %>
+    <table style="height: 1px">
+      <tbody>
+        <tr>
+          <td class="align-bottom">
+            <%= form.label :num_staff, 'Number of Staff' %>
+          </td>
+          <td class="align-bottom">
+            <%= form.number_field :num_staff, min: 1, max: 999999, required: true, class: 'form-control' ,
+              oninput: 'limitInputLength(this, 6)' %>
+          </td>
+        </tr>
+        <tr>
+          <td class="align-bottom">
+            <%= form.label :num_students, 'Number of Students' %>
+          </td>
+          <td class="align-baseline">
+            <%= form.number_field :num_students, min: 1, max: 999999, required: true, class: 'form-control' ,
+              oninput: 'limitInputLength(this, 6)' %>
+          </td>
+        </tr>
+        <tr>
+          <td class="align-bottom">
+            <%= form.label :num_classes, 'Number of Classes' %>
+          </td>
+          <td class="align-baseline">
+            <%= form.number_field :num_classes, min: 1, max: 9999, required: true, class: 'form-control' ,
+              oninput: 'limitInputLength(this, 4)' %>
+          </td>
+        </tr>
+        <tr>
+          <td class="align-bottom">
+            <%= form.label :num_buildings, 'Number of Buildings' %>
+          </td>
+          <td class="align-baseline">
+            <%= form.number_field :num_buildings, min: 1, max: 999, required: true, class: 'form-control' ,
+              oninput: 'limitInputLength(this, 3)' %>
+          </td>
+        </tr>
+        <tr>
+          <td class="align-bottom">
+            <%= form.label :num_students_per_class, 'Number of Students per Class' %>
+          </td>
+          <td class="align-baseline">
+            <%= form.number_field :num_students_per_class, min: 0, max: 999, required: true, class: 'form-control' ,
+              oninput: 'limitInputLength(this, 3)' %>
+          </td>
+        </tr>
+        <tr>
+          <td class="align-bottom">
+            <%= form.label :num_staff_per_class, 'Number of Staff per Class' %>
+          </td>
+          <td class="align-baseline">
+            <%= form.number_field :num_staff_per_class, min: 0, max: 999, required: true, class: 'form-control' ,
+              oninput: 'limitInputLength(this, 3)' %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
-  <div class="text-center mt-4">
-    <%= form.submit 'Generate Data' , class: 'btn btn-primary' %>
-  </div>
-  <% end %>
+    <div class="text-center mt-4">
+      <%= form.submit 'Generate Data' , class: 'btn btn-primary' %>
+    </div>
+    <% end %>
 </div>
 <div id="loadingMessage" style="display: none">
   Generating Term Files, please don't refresh page. It may take a few minutes for a large enrollment.
@@ -111,23 +109,15 @@
       xhr.open("POST", form.action, true);
       xhr.onload = function () {
         if (xhr.status === 200) {
-          setTimeout(function () {
-            window.location.href = "<%= download_staff_csv_url %>";
-          }, 1000);
-
-          setTimeout(function () {
-            window.location.href = "<%= download_students_csv_url %>";
-          }, 2000);
-
-          setTimeout(function () {
-            window.location.href = "<%= download_classes_csv_url %>";
-          }, 3000);
-
-          setTimeout(function () {
-            window.location.href = "<%= download_enrollment_csv_url %>";
-          }, 4000);
-
-          loadingMessage.style.display = "none";
+          downloadFile("<%= download_staff_csv_url %>", function () {
+            downloadFile("<%= download_students_csv_url %>", function () {
+              downloadFile("<%= download_classes_csv_url %>", function () {
+                downloadFile("<%= download_enrollment_csv_url %>", function () {
+                  loadingMessage.style.display = "none";
+                });
+              });
+            });
+          });
         }
       };
       xhr.send(formData);
@@ -140,5 +130,4 @@
       input.value = input.value.slice(0, maxLength);
     }
   }
-  </script>
-  
+</script>
