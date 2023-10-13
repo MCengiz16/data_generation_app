@@ -17,7 +17,7 @@ class DataController < ApplicationController
     DataGenerator.generate_staff_data(num_staff, "automation.testing",'apptegy.com')
     DataGenerator.generate_student_data(num_students, "automation.testing", 'apptegy.com')
     DataGenerator.generate_classes_data(num_classes, num_buildings)
-    DataGenerator.generate_enrollment_data(num_classes, num_students_per_class, num_staff_per_class)
+    DataGenerator.generate_enrollment_data(num_classes, num_students_per_class, num_staff_per_class, num_staff, num_students)
 
     redirect_to root_path, notice: 'Data generated successfully!'
     session[:data_generation_complete] = true

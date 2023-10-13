@@ -76,22 +76,28 @@ module DataGenerator
       end
   end
 
-  def self.generate_enrollment_data(num_classes, num_students_per_class, num_staff_per_class)
+  def self.generate_enrollment_data(num_classes, num_students_per_class, num_staff_per_class, num_staff, num_students)
     FileUtils.mkdir_p('artifact') unless File.directory?('artifact')
+    length = num_students_per_class > num_staff_per_class ? num_students_per_class : num_staff_per_class;
     CSV.open('artifact/enrollment.csv', 'w') do |csv|
         csv << ['class_id', 'student_id', 'staff_id']
     
         num_classes.times do |i|
           class_id = "ClassID#{i+1}"
     
-          num_students_per_class.times do |j|
-            student_id = "student#{i*num_students_per_class + j + 1}"
-    
-            if j < num_staff_per_class
-              staff_id = "staff#{i*num_staff_per_class + j + 1}"
-            else
-              staff_id = nil
-            end
+          length.times do |j|
+
+            student_id = if j < num_students_per_class && j < num_students
+                          "student#{i * num_students_per_class + j + 1}"
+                         else
+                          nil
+                         end
+            
+            staff_id = if j < num_staff_per_class && j < num_staff
+                         "staff#{i * num_staff_per_class + j + 1}"
+                       else
+                         nil
+                       end
     
             csv << [class_id, student_id, staff_id]
           end
