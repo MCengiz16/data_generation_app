@@ -4,12 +4,10 @@ require 'fileutils'
 
 module DataGenerator
 
-  def self.generate_unique_email(email, user_type, i)
+  def self.generate_unique_email(email, user_type, unique_string)
     parts = email.split("@")
     part1 = parts[0]
     part2 = parts[1] 
-    date_number = Time.now.strftime("%Y%m%d%H%M%S%L") 
-    unique_string = "#{i+1}_#{date_number}"
     if user_type == 'staff'
       email = part1 + "+staff_#{unique_string}@#{part2}"
     else
@@ -21,12 +19,14 @@ module DataGenerator
     FileUtils.mkdir_p('artifact') unless File.directory?('artifact')
     staff_emails = []
     staff_ids = []
+    date_number = Time.now.strftime("%Y%m%d%H%M%S%L") 
   
     CSV.open('artifact/staff.csv', 'w') do |csv|  # Specify the path inside the 'artifact' folder
       csv << ['staff_email', 'staff_id', 'staff_first_name', 'staff_last_name']
   
       num_staff.times do |i|
-        staff_email = generate_unique_email(email, 'staff', i)
+        unique_string = "#{i+1}_#{date_number}"
+        staff_email = generate_unique_email(email, 'staff', unique_string)
         staff_id =  "staff#{i+1}"
         staff_first_name = "John#{i+1}"
         staff_last_name = "Doe#{i+1}"
@@ -43,12 +43,14 @@ module DataGenerator
     FileUtils.mkdir_p('artifact') unless File.directory?('artifact')
     student_emails = []
     student_ids = []
+    date_number = Time.now.strftime("%Y%m%d%H%M%S%L")
 
     CSV.open('artifact/students.csv', 'w') do |csv|
     csv << ['student_email', 'student_id', 'student_first_name', 'student_last_name']
 
-    num_students.times do |i|
-      student_email = generate_unique_email(email, 'student', i)
+    num_students.times do |i| 
+      unique_string = "#{i+1}_#{date_number}"
+      student_email = generate_unique_email(email, 'student', unique_string)
       student_id = "student#{i+1}"
       student_first_name = "Jane#{i+1}"
       student_last_name = "Smith#{i+1}"
