@@ -13,9 +13,11 @@ class DataController < ApplicationController
     num_buildings = params[:num_buildings].to_i
     num_students_per_class = params[:num_students_per_class].to_i
     num_staff_per_class = params[:num_staff_per_class].to_i
+    student_email = params[:student_email]
+    staff_email = params[:staff_email]
 
-    DataGenerator.generate_staff_data(num_staff, "automation.testing",'apptegy.com')
-    DataGenerator.generate_student_data(num_students, "automation.testing", 'apptegy.com')
+    DataGenerator.generate_staff_data(num_staff, staff_email)
+    DataGenerator.generate_student_data(num_students, student_email)
     DataGenerator.generate_classes_data(num_classes, num_buildings)
     DataGenerator.generate_enrollment_data(num_classes, num_students_per_class, num_staff_per_class, num_staff, num_students)
 

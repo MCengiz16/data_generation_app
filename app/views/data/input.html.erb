@@ -81,6 +81,12 @@
             <%= form.number_field :num_staff, min: 1, max: 99999, required: true, class: 'form-control' ,
               oninput: 'limitInputLength(this, 5)' %>
           </td>
+          <td class="align-bottom">
+            <%= form.label :staff_email, 'Staff Source Email' %>
+          </td>
+          <td class="align-bottom">
+            <input type="email" id="staff_email" name="staff_email" required maxlength="100" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+          </td>
         </tr>
         <tr>
           <td class="align-bottom">
@@ -89,6 +95,12 @@
           <td class="align-baseline">
             <%= form.number_field :num_students, min: 1, max: 99999, required: true, class: 'form-control' ,
               oninput: 'limitInputLength(this, 5)' %>
+          </td>
+          <td class="align-bottom">
+            <%= form.label :student_email, 'Student Source Email' %>
+          </td>
+          <td class="align-bottom">
+            <input type="email" id="student_email" name="student_email" required maxlength="100" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
           </td>
         </tr>
         <tr>

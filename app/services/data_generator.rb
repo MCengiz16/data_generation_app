@@ -4,19 +4,20 @@ require 'fileutils'
 
 module DataGenerator
 
-  def self.generate_unique_email(email_user, domain, user_type, i)
-    # chars = ('a'..'z').to_a + ('A'..'Z').to_a
-    # random_string = (0...10).map { chars[rand(chars.length)] }.join
+  def self.generate_unique_email(email, user_type, i)
+    parts = email.split("@")
+    part1 = parts[0]
+    part2 = parts[1] 
     date_number = Time.now.strftime("%Y%m%d%H%M%S%L") 
     unique_string = "#{i+1}_#{date_number}"
     if user_type == 'staff'
-      email = email_user + "+staff_#{unique_string}@#{domain}"
+      email = part1 + "+staff_#{unique_string}@#{part2}"
     else
-      email = email_user + "+student_#{unique_string}@#{domain}"
+      email = part1 + "+student_#{unique_string}@#{part2}"
     end
   end
 
-  def self.generate_staff_data(num_staff, email_user, domain)
+  def self.generate_staff_data(num_staff, email)
     FileUtils.mkdir_p('artifact') unless File.directory?('artifact')
     staff_emails = []
     staff_ids = []
@@ -25,7 +26,7 @@ module DataGenerator
       csv << ['staff_email', 'staff_id', 'staff_first_name', 'staff_last_name']
   
       num_staff.times do |i|
-        staff_email = generate_unique_email(email_user, domain, 'staff', i)
+        staff_email = generate_unique_email(email, 'staff', i)
         staff_id =  "staff#{i+1}"
         staff_first_name = "John#{i+1}"
         staff_last_name = "Doe#{i+1}"
@@ -38,7 +39,7 @@ module DataGenerator
     end
   end
 
-  def self.generate_student_data(num_students, email_user, domain)
+  def self.generate_student_data(num_students, email)
     FileUtils.mkdir_p('artifact') unless File.directory?('artifact')
     student_emails = []
     student_ids = []
@@ -47,7 +48,7 @@ module DataGenerator
     csv << ['student_email', 'student_id', 'student_first_name', 'student_last_name']
 
     num_students.times do |i|
-      student_email = generate_unique_email(email_user, domain, 'student', i)
+      student_email = generate_unique_email(email, 'student', i)
       student_id = "student#{i+1}"
       student_first_name = "Jane#{i+1}"
       student_last_name = "Smith#{i+1}"
