@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>DataGenerationApp</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%# <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %> %>
-  </head>
-
-  <body>
-
-
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <%= yield %>
-  </body>
+<head>
+  <title>DataGenerationApp</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%# <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %> %>
+</head>
+<body>
+<nav>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Data Generation App</a>
+  </nav>
+</nav>
+<div class="container">
+  <p class="notice" style="text-align: center; color: red;"><%= notice %></p>
+  <p class="alert" style="text-align: center; color: red;"><%= alert %></p>
+  <%= yield %>
+</div>
+</body>
 </html>

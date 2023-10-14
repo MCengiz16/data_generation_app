@@ -1,76 +1,150 @@
-<div class="container mt-5">
+<html>
+<head>
+  <title>DataGenerationApp</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag 'application' , media: 'all' , 'data-turbolinks-track' => 'reload' %>
+        <%# <%= javascript_pack_tag 'application' , 'data-turbolinks-track' => 'reload' %>
+          <style>
+            .container {
+              max-width: 800px;
+              margin: 0 auto;
+              padding: 20px;
+              background-color: #f9f9f9;
+              border-radius: 8px;
+            }
+
+            h1 {
+              font-size: 2em;
+              text-align: center;
+              margin-bottom: 20px;
+            }
+
+            form {
+              margin-bottom: 20px;
+            }
+
+            table {
+              width: 100%;
+              border-collapse: collapse;
+              margin-bottom: 20px;
+            }
+
+            table td {
+              padding: 20px;
+              border: 1px solid #ccc;
+            }
+
+            label {
+              font-weight: bold;
+            }
+
+            input[type="number"] {
+              width: 100%;
+              padding: 8px;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+            }
+
+            .btn-primary {
+              background-color: #007bff;
+              color: #fff;
+              padding: 10px 20px;
+              border: none;
+              border-radius: 4px;
+              cursor: pointer;
+              font-size: 16px;
+            }
+
+            .btn-primary:hover {
+              background-color: #0056b3;
+            }
+
+            #loadingMessage {
+              display: none;
+              text-align: center;
+              font-size: 1.2em;
+            }
+          </style>
+</head>
+<body>
   <h1 class="mb-4">Term List Generation Form</h1>
+  <%= form_with(url: generate_path, method: :post, class: 'mb-4' , id: "dataForm" ) do |form| %>
+    <table style="height: 1px">
+      <tbody>
+        <tr>
+          <td class="align-bottom">
+            <%= form.label :num_staff, 'Number of Staff' %>
+          </td>
+          <td class="align-bottom">
+            <%= form.number_field :num_staff, min: 1, max: 99999, required: true, class: 'form-control' ,
+              oninput: 'limitInputLength(this, 5)' %>
+          </td>
+        </tr>
+        <tr>
+          <td class="align-bottom">
+            <%= form.label :num_students, 'Number of Students' %>
+          </td>
+          <td class="align-baseline">
+            <%= form.number_field :num_students, min: 1, max: 99999, required: true, class: 'form-control' ,
+              oninput: 'limitInputLength(this, 5)' %>
+          </td>
+        </tr>
+        <tr>
+          <td class="align-bottom">
+            <%= form.label :num_classes, 'Number of Classes' %>
+          </td>
+          <td class="align-baseline">
+            <%= form.number_field :num_classes, min: 1, max: 999, required: true, class: 'form-control' ,
+              oninput: 'limitInputLength(this, 3)' %>
+          </td>
+        </tr>
+        <tr>
+          <td class="align-bottom">
+            <%= form.label :num_buildings, 'Number of Buildings' %>
+          </td>
+          <td class="align-baseline">
+            <%= form.number_field :num_buildings, min: 1, max: 999, required: true, class: 'form-control' ,
+              oninput: 'limitInputLength(this, 3)' %>
+          </td>
+        </tr>
+        <tr>
+          <td class="align-bottom">
+            <%= form.label :num_students_per_class, 'Number of Students per Class' %>
+          </td>
+          <td class="align-baseline">
+            <%= form.number_field :num_students_per_class, min: 0, max: 999, required: true, class: 'form-control' ,
+              oninput: 'limitInputLength(this, 3)' %>
+          </td>
+        </tr>
+        <tr>
+          <td class="align-bottom">
+            <%= form.label :num_staff_per_class, 'Number of Staff per Class' %>
+          </td>
+          <td class="align-baseline">
+            <%= form.number_field :num_staff_per_class, min: 0, max: 999, required: true, class: 'form-control' ,
+              oninput: 'limitInputLength(this, 3)' %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="text-center mt-4">
+      <%= form.submit 'Generate Data' , class: 'btn btn-primary' %>
+    </div>
+    <% end %>
+      </div>
+      <div id="loadingMessage" style="display: none; color: red;">
+        Generating Term Files, please don't refresh page. It may take a few minutes for a large enrollment.
+      </div>
+</body>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-  <%= form_with(url: generate_path, method: :post, class: 'mb-4' , id:
-  "dataForm" ) do |form| %>
-  <table style="height: 1px">
-    <tbody>
-      <tr>
-        <td class="align-bottom">
-          <%= form.label :num_staff, 'Number of Staff' %>
-        </td>
-        <td class="align-bottom">
-          <%= form.number_field :num_staff, min: 1, max: 99999, required: true,
-          class: 'form-control', oninput: 'limitInputLength(this, 5)' %>
-        </td>
-      </tr>
-      <tr>
-        <td class="align-bottom">
-          <%= form.label :num_students, 'Number of Students' %>
-        </td>
-        <td class="align-baseline">
-          <%= form.number_field :num_students, min: 1, max: 99999, required:
-          true, class: 'form-control', oninput: 'limitInputLength(this, 5)' %>
-        </td>
-      </tr>
-      <tr>
-        <td class="align-bottom">
-          <%= form.label :num_classes, 'Number of Classes' %>
-        </td>
-        <td class="align-baseline">
-          <%= form.number_field :num_classes, min: 1, max: 999, required:
-          true, class: 'form-control', oninput: 'limitInputLength(this, 3)' %>
-        </td>
-      </tr>
-      <tr>
-        <td class="align-bottom">
-          <%= form.label :num_buildings, 'Number of Buildings' %>
-        </td>
-        <td class="align-baseline">
-          <%= form.number_field :num_buildings, min: 1, max: 999, required:
-          true, class: 'form-control', oninput: 'limitInputLength(this, 3)' %>
-        </td>
-      </tr>
-      <tr>
-        <td class="align-bottom">
-          <%= form.label :num_students_per_class, 'Number of Students per Class'
-          %>
-        </td>
-        <td class="align-baseline">
-          <%= form.number_field :num_students_per_class, min: 0, max: 999,
-          required: true, class: 'form-control', oninput: 'limitInputLength(this, 3)' %>
-        </td>
-      </tr>
-      <tr>
-        <td class="align-bottom">
-          <%= form.label :num_staff_per_class, 'Number of Staff per Class' %>
-        </td>
-        <td class="align-baseline">
-          <%= form.number_field :num_staff_per_class, min: 0, max: 999,
-          required: true, class: 'form-control', oninput: 'limitInputLength(this, 3)' %>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+</html>
 
-  <div class="text-center mt-4">
-    <%= form.submit 'Generate Data' , class: 'btn btn-primary' %>
-  </div>
-  <% end %>
-</div>
-<div id="loadingMessage" style="display: none">
-  Generating Term Files, please don't refresh page. It may take a few minutes for a large enrollment.
-</div>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     var form = document.getElementById("dataForm");
@@ -140,5 +214,4 @@
       input.value = input.value.slice(0, maxLength);
     }
   }
-  </script>
-  
+</script>
