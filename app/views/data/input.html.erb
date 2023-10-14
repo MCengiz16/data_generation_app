@@ -41,7 +41,7 @@
             }
 
             input[type="number"] {
-              width: 100%;
+              width: 117%;
               padding: 8px;
               border: 1px solid #ccc;
               border-radius: 4px;
@@ -79,13 +79,14 @@
           </td>
           <td class="align-bottom">
             <%= form.number_field :num_staff, min: 1, max: 99999, required: true, class: 'form-control' ,
-              oninput: 'limitInputLength(this, 5)' %>
+              oninput: 'limitInputLength(this, 5)', placeholder: 'max 99999'   %>
           </td>
           <td class="align-bottom">
             <%= form.label :staff_email, 'Staff Source Email' %>
+            <p class="description">Emails will be generated using this email</p>
           </td>
           <td class="align-bottom">
-            <input type="email" id="staff_email" name="staff_email" required maxlength="100" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+            <input type="email" id="staff_email" name="staff_email" required maxlength="100" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="example@example.com">
           </td>
         </tr>
         <tr>
@@ -94,13 +95,14 @@
           </td>
           <td class="align-baseline">
             <%= form.number_field :num_students, min: 1, max: 99999, required: true, class: 'form-control' ,
-              oninput: 'limitInputLength(this, 5)' %>
+              oninput: 'limitInputLength(this, 5)', placeholder: 'max 99999'   %>
           </td>
           <td class="align-bottom">
             <%= form.label :student_email, 'Student Source Email' %>
+            <p class="description">Emails will be generated using this email</p>
           </td>
           <td class="align-bottom">
-            <input type="email" id="student_email" name="student_email" required maxlength="100" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+            <input type="email" id="student_email" name="student_email" required maxlength="100" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="example@example.com">
           </td>
         </tr>
         <tr>
@@ -109,7 +111,7 @@
           </td>
           <td class="align-baseline">
             <%= form.number_field :num_classes, min: 1, max: 999, required: true, class: 'form-control' ,
-              oninput: 'limitInputLength(this, 3)' %>
+              oninput: 'limitInputLength(this, 3)', placeholder: 'max 999'   %>
           </td>
         </tr>
         <tr>
@@ -118,7 +120,7 @@
           </td>
           <td class="align-baseline">
             <%= form.number_field :num_buildings, min: 1, max: 999, required: true, class: 'form-control' ,
-              oninput: 'limitInputLength(this, 3)' %>
+              oninput: 'limitInputLength(this, 3)', placeholder: 'max 999'  %>
           </td>
         </tr>
         <tr>
@@ -127,7 +129,7 @@
           </td>
           <td class="align-baseline">
             <%= form.number_field :num_students_per_class, min: 0, max: 999, required: true, class: 'form-control' ,
-              oninput: 'limitInputLength(this, 3)' %>
+              oninput: 'limitInputLength(this, 3)', placeholder: 'max 999'   %>
           </td>
         </tr>
         <tr>
@@ -136,7 +138,7 @@
           </td>
           <td class="align-baseline">
             <%= form.number_field :num_staff_per_class, min: 0, max: 999, required: true, class: 'form-control' ,
-              oninput: 'limitInputLength(this, 3)' %>
+              oninput: 'limitInputLength(this, 3)', placeholder: 'max 999'   %>
           </td>
         </tr>
       </tbody>
