@@ -144,7 +144,7 @@
       </tbody>
     </table>
     <div class="text-center mt-4">
-      <%= form.submit 'Generate Data' , class: 'btn btn-primary' %>
+      <%= form.submit 'Generate Data' , class: 'btn btn-primary', id: 'generateButton' %>
     </div>
     <% end %>
       </div>
@@ -166,6 +166,7 @@
 
     form.addEventListener("submit", function (event) {
       event.preventDefault();
+
 
       var numStudents = parseInt(document.getElementById("num_students").value);
       var numStudentsPerClass = parseInt(
@@ -190,7 +191,8 @@
         );
         return;
       }
-
+      
+      generateButton.disabled = true;
       loadingMessage.style.display = "block";
 
       var formData = new FormData(form);
@@ -215,6 +217,7 @@
             window.location.href = "<%= download_enrollment_csv_url %>";
           }, 4000);
 
+          generateButton.disabled = false;
           loadingMessage.style.display = "none";
         }
       };
