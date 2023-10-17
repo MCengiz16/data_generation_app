@@ -9,11 +9,12 @@
   <%# <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %> %>
 </head>
 <body>
-<nav>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="#">Data Generation App</a>
+    <div class="ml-auto">
+      <%= render 'layouts/header' %>
+    </div>
   </nav>
-</nav>
 <div class="container">
   <p class="notice" style="text-align: center; color: blue;"><%= notice %></p>
   <p class="alert" style="text-align: center; color: blue;"><%= alert %></p>
