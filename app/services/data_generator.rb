@@ -17,8 +17,6 @@ module DataGenerator
 
   def self.generate_staff_data(num_staff, email)
     FileUtils.mkdir_p('artifact') unless File.directory?('artifact')
-    staff_emails = []
-    staff_ids = []
     date_number = Time.now.strftime("%Y%m%d%H%M%S%L") 
   
     CSV.open('artifact/staff.csv', 'w') do |csv|  # Specify the path inside the 'artifact' folder
@@ -32,17 +30,12 @@ module DataGenerator
         staff_last_name = "Doe#{i+1}"
   
         csv << [staff_email, staff_id, staff_first_name, staff_last_name]
-  
-        staff_emails << staff_email
-        staff_ids << staff_id
       end
     end
   end
 
   def self.generate_student_data(num_students, email)
     FileUtils.mkdir_p('artifact') unless File.directory?('artifact')
-    student_emails = []
-    student_ids = []
     date_number = Time.now.strftime("%Y%m%d%H%M%S%L")
 
     CSV.open('artifact/students.csv', 'w') do |csv|
@@ -56,9 +49,6 @@ module DataGenerator
       student_last_name = "Smith#{i+1}"
 
       csv << [student_email, student_id, student_first_name, student_last_name]
-
-      student_emails << student_email
-      student_ids << student_id
      end
     end
   end
