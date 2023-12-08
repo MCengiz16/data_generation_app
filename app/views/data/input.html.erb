@@ -128,8 +128,8 @@
             <%= form.label :num_students_per_class, 'Number of Students per Class' %>
           </td>
           <td class="align-baseline">
-            <%= form.number_field :num_students_per_class, min: 0, max: 999, required: true, class: 'form-control' ,
-              oninput: 'limitInputLength(this, 3)', placeholder: 'max 999'   %>
+            <%= form.number_field :num_students_per_class, min: 0, max: 9999, required: true, class: 'form-control' ,
+              oninput: 'limitInputLength(this, 4)', placeholder: 'max 9999'   %>
           </td>
         </tr>
         <tr>
@@ -137,8 +137,8 @@
             <%= form.label :num_staff_per_class, 'Number of Staff per Class' %>
           </td>
           <td class="align-baseline">
-            <%= form.number_field :num_staff_per_class, min: 0, max: 999, required: true, class: 'form-control' ,
-              oninput: 'limitInputLength(this, 3)', placeholder: 'max 999'   %>
+            <%= form.number_field :num_staff_per_class, min: 0, max: 9999, required: true, class: 'form-control' ,
+              oninput: 'limitInputLength(this, 4)', placeholder: 'max 9999'   %>
           </td>
         </tr>
       </tbody>
