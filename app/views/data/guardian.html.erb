@@ -1,0 +1,162 @@
+<html>
+<head>
+  <title>DataGenerationApp</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag 'application' , media: 'all' , 'data-turbolinks-track' => 'reload' %>
+        <%# <%= javascript_pack_tag 'application' , 'data-turbolinks-track' => 'reload' %>
+          <style>
+            .container {
+              max-width: 800px;
+              margin: 0 auto;
+              padding: 20px;
+              background-color: #f9f9f9;
+              border-radius: 8px;
+            }
+
+            h1 {
+              font-size: 2em;
+              text-align: center;
+              margin-bottom: 20px;
+            }
+
+            form {
+              margin-bottom: 20px;
+            }
+
+            table {
+              width: 100%;
+              border-collapse: collapse;
+              margin-bottom: 20px;
+            }
+
+            table td {
+              padding: 20px;
+              border: 1px solid #ccc;
+            }
+
+            label {
+              font-weight: bold;
+            }
+
+            input[type="number"] {
+              width: 100%;
+              padding: 8px;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+            }
+
+            .btn-primary {
+              background-color: #007bff;
+              color: #fff;
+              padding: 10px 20px;
+              border: none;
+              border-radius: 4px;
+              cursor: pointer;
+              font-size: 16px;
+            }
+
+            .btn-primary:hover {
+              background-color: #0056b3;
+            }
+
+            #loadingMessage {
+              display: none;
+              text-align: center;
+              font-size: 1.2em;
+            }
+          </style>
+</head>
+<body>
+  <h1 class="mb-4">Guardian List Generation Form</h1>
+  <%= form_with(url: generate_guardian_path, method: :post, class: 'mb-4' , id: "dataForm" ) do |form| %>
+    <table style="height: 1px">
+      <tbody>
+        <tr>
+          <td class="align-bottom">
+            <%= form.label :guardian_email, 'Guardian Source Email' %>
+            <p class="description">Emails will be generated using this email</p>
+          </td>
+          <td class="align-bottom">
+            <input type="email" id="guardian_email" name="guardian_email" required maxlength="100" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="example@example.com">
+          </td>
+        <tr>
+          <td class="align-bottom">
+            <%= form.label :num_guardian, 'Number of Guardian' %>
+          </td>
+          <td class="align-bottom">
+            <%= form.number_field :num_guardian, min: 1, max: 99999, required: true, class: 'form-control' ,
+              oninput: 'limitInputLength(this, 5)', placeholder: 'max 99999'   %>
+          </td>
+        </tr>
+        <tr>
+         
+          <td class="align-bottom">
+            <%= form.label :num_student_id, 'Student ID' %>
+            <p class="description">Existing Student ID</p>
+          </td>
+          <td class="align-bottom">
+            <%= form.number_field :num_student_id, min: 1, max: 99999, required: true, class: 'form-control' ,
+              oninput: 'limitInputLength(this, 5)', placeholder: 'max 99999'   %>
+          </td>
+       
+      </tbody>
+    </table>
+    <div class="text-center mt-4">
+      <%= form.submit 'Generate Data' , class: 'btn btn-primary', id: 'generateButton' %>
+    </div>
+    <% end %>
+      </div>
+      <div id="loadingMessage" style="display: none; color: red;">
+        Generating Term Files, please don't refresh page. It may take a few minutes for a large enrollment.
+      </div>
+</body>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</html>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var form = document.getElementById("dataForm");
+    var loadingMessage = document.getElementById("loadingMessage");
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      var numGuardians = parseInt(document.getElementById("num_guardian").value);
+      var numStudentIds = parseInt(
+        document.getElementById("num_student_id").value
+      );
+      
+      generateButton.disabled = true;
+      loadingMessage.style.display = "block";
+
+      var formData = new FormData(form);
+
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", form.action, true);
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          setTimeout(function () {
+            window.location.href = "<%= download_guardian_csv_path %>";
+          }, 1000);
+
+          generateButton.disabled = false;
+          loadingMessage.style.display = "none";
+        }
+      };
+      xhr.send(formData);
+    });
+  });
+</script>
+<script>
+  function limitInputLength(input, maxLength) {
+    if (input.value.length > maxLength) {
+      input.value = input.value.slice(0, maxLength);
+    }
+  }
+</script>

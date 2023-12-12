@@ -10,8 +10,10 @@ module DataGenerator
     part2 = parts[1] 
     if user_type == 'staff'
       email = part1 + "+staff_#{unique_string}@#{part2}"
-    else
+    elsif user_type == 'student'
       email = part1 + "+student_#{unique_string}@#{part2}"
+    else
+      email = part1 + "+guardian_#{unique_string}@#{part2}"
     end
   end
 
@@ -96,5 +98,23 @@ module DataGenerator
           end
         end
       end
+  end
+
+  def self.generate_guardian_data(num_guardian, student_id, email)
+    FileUtils.mkdir_p('artifact') unless File.directory?('artifact')
+    date_number = Time.now.strftime("%Y%m%d%H%M%S%L") 
+  
+    CSV.open('artifact/guardian.csv', 'w') do |csv|  # Specify the path inside the 'artifact' folder
+      csv << ['Student ID', 'FirstName', 'LastName', 'e-Mail']
+  
+      num_guardian.times do |i|
+        unique_string = "#{i+1}_#{date_number}"
+        guardian_email = generate_unique_email(email, 'guardian', unique_string)
+        guardian_first_name = "Jason#{i+1}"
+        guardian_last_name = "Doe#{i+1}"
+  
+        csv << [student_id, guardian_first_name, guardian_last_name, guardian_email]
+      end
+    end
   end
 end
