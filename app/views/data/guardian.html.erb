@@ -97,8 +97,8 @@
             <p class="description">Existing Student ID</p>
           </td>
           <td class="align-bottom">
-            <%= form.number_field :num_student_id, min: 1, max: 99999, required: true, class: 'form-control' ,
-              oninput: 'limitInputLength(this, 5)', placeholder: 'max 99999'   %>
+            <%= form.number_field :num_student_id, min: 1, max: 99999999999999999999, required: true, class: 'form-control' ,
+              oninput: 'limitInputLength(this, 20)', placeholder: 'Student ID'   %>
           </td>
        
       </tbody>
